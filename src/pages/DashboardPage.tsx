@@ -105,7 +105,7 @@ export function DashboardPage() {
               </Typography>
             </Grid>
             <Grid size={{ xs: 12, md: 4 }}>
-              <Stack direction={{ xs: 'row', md: 'column' }} spacing={1.5} sx={{ justifyContent: 'flex-start', alignItems: { md: 'flex-start' } }}>
+              <Stack direction={{ xs: 'row', md: 'column' }} spacing={1.5} sx={{ justifySelf: 'flex-end', alignItems: { md: 'flex-end' } }}>
                 <Button component={RouterLink} to="/horses" variant="contained" color="secondary" endIcon={<ChevronRightRoundedIcon />}>
                   Browse horses
                 </Button>

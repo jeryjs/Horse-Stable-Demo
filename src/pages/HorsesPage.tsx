@@ -46,11 +46,11 @@ export function HorsesPage() {
       flex: 1.35,
       minWidth: 220,
       renderCell: (params) => (
-        <Stack direction="row" spacing={1.5} sx={{ height: '100%', alignItems: 'center' }}>
+        <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center' }}>
           <HorseAvatar horse={params.row} size={38} />
-          <Box>
-            <Typography variant="body2" sx={{ fontWeight: 800 }}>{params.row.name}</Typography>
-            <Typography variant="caption" color="text.secondary">{params.row.id}</Typography>
+          <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+            <Typography variant="body2" sx={{ fontWeight: 800, mr: 1 }}>{params.row.name}</Typography>
+            <Typography variant="caption" color="text.secondary">({params.row.id})</Typography>
           </Box>
         </Stack>
       ),
@@ -92,6 +92,7 @@ export function HorsesPage() {
         <DataGrid
           rows={filteredHorses}
           columns={columns}
+          rowHeight={64}
           autoHeight
           disableRowSelectionOnClick
           onRowClick={(params) => navigate(`/horses/${params.row.id}`)}
