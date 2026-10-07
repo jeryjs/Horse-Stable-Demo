@@ -27,12 +27,14 @@ import { PageHeader } from '../components/common/PageHeader'
 import { StableIntelligenceCard } from '../components/common/StableIntelligenceCard'
 import { useStableData } from '../hooks/useStableData'
 import { useStableIntelligence } from '../hooks/useStableIntelligence'
+import { useAuth } from '../hooks/useAuth'
 import { horseStatuses } from '../types/stable'
 
 export function DashboardPage() {
   const theme = useTheme()
   const navigate = useNavigate()
   const { horses, activities } = useStableData()
+  const { user } = useAuth()
   const { attentionInsights, insights } = useStableIntelligence()
   const today = new Date().toISOString().slice(0, 10)
   const todayActivities = activities
@@ -44,12 +46,18 @@ export function DashboardPage() {
   }))
   const horseById = new Map(horses.map((horse) => [horse.id, horse]))
   const featuredInsight = attentionInsights[0] ?? insights[0]
+  const todayLabel = new Intl.DateTimeFormat('en-GB', {
+    weekday: 'long',
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  }).format(new Date())
 
   return (
     <>
       <PageHeader
-        eyebrow="Wednesday · 07 October 2026"
-        title="Good morning, stable team."
+        eyebrow={todayLabel}
+        title={`Good morning, ${user?.displayName ?? 'stable team'}.`}
         description="A clear view of every horse, every handoff, and the small signals that keep the yard moving well."
         actionLabel="Log activity"
         actionIcon={<CalendarMonthRoundedIcon />}

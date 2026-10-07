@@ -5,6 +5,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { useMemo } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AppShell } from './components/layout/AppShell'
+import { ProtectedRoute } from './components/auth/ProtectedRoute'
+import { AuthProvider } from './hooks/useAuth'
 import { StableDataProvider } from './hooks/useStableData'
 import { ThemeModeProvider, useThemeMode } from './hooks/useThemeMode'
 import { createAppTheme } from './theme/theme'
@@ -13,6 +15,7 @@ import { ActivitiesPage } from './pages/ActivitiesPage'
 import { HorseProfilePage } from './pages/HorseProfilePage'
 import { HorsesPage } from './pages/HorsesPage'
 import { NotFoundPage } from './pages/NotFoundPage'
+import { LoginPage } from './pages/LoginPage'
 
 function ThemedApplication() {
   const { resolvedMode } = useThemeMode()
@@ -22,18 +25,23 @@ function ThemedApplication() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <StableDataProvider>
-          <Routes>
-            <Route element={<AppShell />}>
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/horses" element={<HorsesPage />} />
-              <Route path="/horses/:horseId" element={<HorseProfilePage />} />
-              <Route path="/activities" element={<ActivitiesPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Route>
-          </Routes>
-        </StableDataProvider>
+        <AuthProvider>
+          <StableDataProvider>
+            <Routes>
+              <Route path="/login" element={<LoginPage />} />
+              <Route element={<ProtectedRoute />}>
+                <Route element={<AppShell />}>
+                  <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                  <Route path="/dashboard" element={<DashboardPage />} />
+                  <Route path="/horses" element={<HorsesPage />} />
+                  <Route path="/horses/:horseId" element={<HorseProfilePage />} />
+                  <Route path="/activities" element={<ActivitiesPage />} />
+                  <Route path="*" element={<NotFoundPage />} />
+                </Route>
+              </Route>
+            </Routes>
+          </StableDataProvider>
+        </AuthProvider>
       </LocalizationProvider>
     </ThemeProvider>
   )

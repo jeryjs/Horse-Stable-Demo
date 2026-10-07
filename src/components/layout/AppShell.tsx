@@ -6,6 +6,7 @@ import PetsRoundedIcon from '@mui/icons-material/PetsRounded'
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded'
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
 import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneRounded'
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import SettingsBrightnessRoundedIcon from '@mui/icons-material/SettingsBrightnessRounded'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -27,6 +28,7 @@ import { useState } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useTheme } from '@mui/material/styles'
 import { useThemeMode, type ThemeMode } from '../../hooks/useThemeMode'
+import { useAuth } from '../../hooks/useAuth'
 
 const drawerWidth = 264
 
@@ -184,6 +186,8 @@ export function AppShell() {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [accountAnchor, setAccountAnchor] = useState<null | HTMLElement>(null)
+  const { user, logout } = useAuth()
   const location = useLocation()
   const pageTitle = location.pathname.startsWith('/horses/')
     ? 'Horse profile'
@@ -223,9 +227,16 @@ export function AppShell() {
               </IconButton>
             </Tooltip>
             <ThemeModeMenu />
-            <IconButton aria-label="Account menu">
+            <IconButton aria-label="Account menu" onClick={(event) => setAccountAnchor(event.currentTarget)}>
               <AccountCircleRoundedIcon />
             </IconButton>
+            <Menu anchorEl={accountAnchor} open={Boolean(accountAnchor)} onClose={() => setAccountAnchor(null)}>
+              <MenuItem disabled>{user?.email}</MenuItem>
+              <MenuItem onClick={() => { void logout(); setAccountAnchor(null) }}>
+                <ListItemIcon><LogoutRoundedIcon fontSize="small" /></ListItemIcon>
+                Sign out
+              </MenuItem>
+            </Menu>
           </Stack>
         </Toolbar>
       </AppBar>
