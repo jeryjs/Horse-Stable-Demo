@@ -39,7 +39,7 @@ export function createAppTheme(mode: PaletteMode) {
       divider: dark ? 'rgba(220, 239, 228, 0.12)' : 'rgba(30, 43, 42, 0.12)',
     },
     typography: {
-      fontFamily: 'Inter, ui-sans-serif, system-ui, -apple-system, sans-serif',
+      fontFamily: 'Helvetica, Arial, sans-serif',
       h1: {
         fontFamily: 'Georgia, Times New Roman, serif',
         fontSize: 'clamp(2rem, 3vw, 3.2rem)',
