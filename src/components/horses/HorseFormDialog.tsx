@@ -1,4 +1,5 @@
 import CloudUploadRoundedIcon from '@mui/icons-material/CloudUploadRounded'
+import Autocomplete from '@mui/material/Autocomplete'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
@@ -13,6 +14,20 @@ import type { ChangeEvent, FormEvent } from 'react'
 import { useEffect, useState } from 'react'
 import type { Horse, HorseInput } from '../../types/stable'
 import { horseStatuses } from '../../types/stable'
+
+const breedOptions = [
+  'Arabian',
+  'Thoroughbred',
+  'Friesian',
+  'American Quarter Horse',
+  'Appaloosa',
+  'Clydesdale',
+  'Morgan',
+  'Mustang',
+  'Paint Horse',
+  'Shire',
+  'Warmblood',
+]
 
 interface HorseFormDialogProps {
   open: boolean
@@ -76,7 +91,15 @@ export function HorseFormDialog({ open, horse, onClose, onSubmit }: HorseFormDia
               <TextField label="Horse name" value={values.name} onChange={(event) => update('name', event.target.value)} required fullWidth autoFocus />
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
-              <TextField label="Breed" value={values.breed} onChange={(event) => update('breed', event.target.value)} required fullWidth />
+              <Autocomplete
+                freeSolo
+                options={breedOptions}
+                value={values.breed}
+                onChange={(_, breed) => update('breed', breed ?? '')}
+                onInputChange={(_, breed) => update('breed', breed)}
+                renderInput={(params) => <TextField {...params} label="Breed" required />}
+                fullWidth
+              />
             </Grid>
             <Grid size={{ xs: 12, sm: 4 }}>
               <TextField label="Gender" value={values.gender} onChange={(event) => update('gender', event.target.value as HorseInput['gender'])} select required fullWidth>
