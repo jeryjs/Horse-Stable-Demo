@@ -10,34 +10,35 @@ import type { FormEvent } from 'react'
 import { useEffect, useState } from 'react'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
-import type { ActivityInput, Horse } from '../../types/stable'
+import type { Activity, ActivityInput, Horse } from '../../types/stable'
 import { activityTypes } from '../../types/stable'
 
 interface ActivityFormDialogProps {
   open: boolean
   horses: Horse[]
+  activity?: Activity
   initialHorseId?: string
   onClose: () => void
   onSubmit: (input: ActivityInput) => Promise<void>
 }
 
-function createInitialValues(horses: Horse[], initialHorseId?: string): ActivityInput {
+function createInitialValues(horses: Horse[], initialHorseId?: string, activity?: Activity): ActivityInput {
   return {
-    horseId: initialHorseId ?? horses[0]?.id ?? '',
-    date: new Date().toISOString().slice(0, 10),
-    type: 'Training',
-    notes: '',
-    staffTrainer: '',
+    horseId: activity?.horseId ?? initialHorseId ?? horses[0]?.id ?? '',
+    date: activity?.date ?? new Date().toISOString().slice(0, 10),
+    type: activity?.type ?? 'Training',
+    notes: activity?.notes ?? '',
+    staffTrainer: activity?.staffTrainer ?? '',
   }
 }
 
-export function ActivityFormDialog({ open, horses, initialHorseId, onClose, onSubmit }: ActivityFormDialogProps) {
-  const [values, setValues] = useState<ActivityInput>(() => createInitialValues(horses, initialHorseId))
+export function ActivityFormDialog({ open, horses, activity, initialHorseId, onClose, onSubmit }: ActivityFormDialogProps) {
+  const [values, setValues] = useState<ActivityInput>(() => createInitialValues(horses, initialHorseId, activity))
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
-    if (open) setValues(createInitialValues(horses, initialHorseId))
-  }, [horses, initialHorseId, open])
+    if (open) setValues(createInitialValues(horses, initialHorseId, activity))
+  }, [activity, horses, initialHorseId, open])
 
   const update = <Key extends keyof ActivityInput>(key: Key, value: ActivityInput[Key]) => {
     setValues((current) => ({ ...current, [key]: value }))
@@ -57,7 +58,7 @@ export function ActivityFormDialog({ open, horses, initialHorseId, onClose, onSu
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <form onSubmit={handleSubmit}>
-        <DialogTitle>Log a stable activity</DialogTitle>
+        <DialogTitle>{activity ? 'Edit stable activity' : 'Log a stable activity'}</DialogTitle>
         <DialogContent dividers>
           <Grid container spacing={2} sx={{ pt: 0.5 }}>
             <Grid size={{ xs: 12, sm: 6 }}>
@@ -89,7 +90,7 @@ export function ActivityFormDialog({ open, horses, initialHorseId, onClose, onSu
         <DialogActions sx={{ px: 3, py: 2 }}>
           <Button onClick={onClose} color="inherit">Cancel</Button>
           <Button type="submit" variant="contained" disabled={isSubmitting || !horses.length}>
-            {isSubmitting ? 'Saving…' : 'Log activity'}
+            {isSubmitting ? 'Saving…' : activity ? 'Save changes' : 'Log activity'}
           </Button>
         </DialogActions>
       </form>
