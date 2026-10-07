@@ -14,31 +14,11 @@ Care insights are generated from local rules and activity dates. They are not AI
 
 ## Screenshots
 
-Add screenshots here when available. Replace each placeholder with an image, for example: `![Dashboard](screenshots/dashboard.png)`.
-
-### Sign in
-
-<!-- <Sign-in page screenshot goes here> -->
-
-### Dashboard
-
-<!-- <Dashboard screenshot goes here> -->
-
-### Horses
-
-<!-- <Horse list screenshot goes here> -->
-
-### Horse profile
-
-<!-- <Horse profile and activity timeline screenshot goes here> -->
-
-### Activities
-
-<!-- <Activity list screenshot goes here> -->
-
-### Not found
-
-<!-- <Not-found page screenshot goes here> -->
+<img width="480" alt="Login" src="https://github.com/user-attachments/assets/7066ebb0-81ac-4378-947b-4880d092aa58" />
+<img width="480" alt="Horses" src="https://github.com/user-attachments/assets/e44d4bc5-03c2-4a07-8471-974f9529af40" />
+<img width="480" alt="Horses Profile" src="https://github.com/user-attachments/assets/f8a94ebb-2249-4495-85cf-44776d97ebe8" />
+<img width="480" alt="Activities" src="https://github.com/user-attachments/assets/46dc5ff0-c6ce-457c-b492-d7a187af5aec" />
+<img width="480" alt="Dashboard" src="https://github.com/user-attachments/assets/8867f62c-0b7e-40bd-9ae9-0586f39c716e" />
 
 ## Run locally
 
