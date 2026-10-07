@@ -5,7 +5,6 @@ import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded'
 import PetsRoundedIcon from '@mui/icons-material/PetsRounded'
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded'
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
-import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneRounded'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import SettingsBrightnessRoundedIcon from '@mui/icons-material/SettingsBrightnessRounded'
 import AppBar from '@mui/material/AppBar'
@@ -29,6 +28,7 @@ import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useTheme } from '@mui/material/styles'
 import { useThemeMode, type ThemeMode } from '../../hooks/useThemeMode'
 import { useAuth } from '../../hooks/useAuth'
+import { NotificationsMenu } from './NotificationsMenu'
 
 const drawerWidth = 264
 
@@ -161,7 +161,7 @@ function NavigationContent({ onNavigate }: { onNavigate: () => void }) {
         <Box
           sx={{
             p: 2,
-            borderRadius: 4,
+            borderRadius: '16px',
             backgroundColor: 'action.hover',
             border: '1px solid',
             borderColor: 'divider',
@@ -221,11 +221,7 @@ export function AppShell() {
             </Typography>
           </Box>
           <Stack direction="row" spacing={0.5} sx={{ alignItems: 'center' }}>
-            <Tooltip title="No new notifications">
-              <IconButton aria-label="Notifications">
-                <NotificationsNoneRoundedIcon />
-              </IconButton>
-            </Tooltip>
+            <NotificationsMenu />
             <ThemeModeMenu />
             <IconButton aria-label="Account menu" onClick={(event) => setAccountAnchor(event.currentTarget)}>
               <AccountCircleRoundedIcon />
