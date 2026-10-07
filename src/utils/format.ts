@@ -15,6 +15,16 @@ export function formatDateTime(value: string) {
   }).format(new Date(value))
 }
 
+export function isToday(value: string) {
+  const date = new Date(`${value}T12:00:00`)
+  const today = new Date()
+  return (
+    date.getFullYear() === today.getFullYear() &&
+    date.getMonth() === today.getMonth() &&
+    date.getDate() === today.getDate()
+  )
+}
+
 export function calculateAge(dateOfBirth: string) {
   const birthDate = new Date(`${dateOfBirth}T12:00:00`)
   const today = new Date()

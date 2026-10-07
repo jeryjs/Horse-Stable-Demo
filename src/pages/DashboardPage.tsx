@@ -29,6 +29,7 @@ import { useStableData } from '../hooks/useStableData'
 import { useStableIntelligence } from '../hooks/useStableIntelligence'
 import { useAuth } from '../hooks/useAuth'
 import { horseStatuses } from '../types/stable'
+import { isToday } from '../utils/format'
 
 export function DashboardPage() {
   const theme = useTheme()
@@ -36,10 +37,26 @@ export function DashboardPage() {
   const { horses, activities } = useStableData()
   const { user } = useAuth()
   const { attentionInsights, insights } = useStableIntelligence()
-  const today = new Date().toISOString().slice(0, 10)
   const todayActivities = activities
-    .filter((activity) => activity.date === today)
+    .filter((activity) => isToday(activity.date))
     .sort((first, second) => second.createdAt.localeCompare(first.createdAt))
+  const veterinaryCutoff = new Date()
+  veterinaryCutoff.setHours(0, 0, 0, 0)
+  veterinaryCutoff.setDate(veterinaryCutoff.getDate() - 14)
+  const horsesWithRecentVetActivity = new Set(
+    activities
+      .filter(
+        (activity) =>
+          activity.type === 'Veterinary' &&
+          new Date(`${activity.date}T12:00:00`) >= veterinaryCutoff,
+      )
+      .map((activity) => activity.horseId),
+  )
+  const horsesRequiringAttention = horses.filter(
+    (horse) =>
+      horse.status === 'Medical Attention' ||
+      !horsesWithRecentVetActivity.has(horse.id),
+  ).length
   const statusData = horseStatuses.map((status) => ({
     label: status === 'Medical Attention' ? 'Medical' : status,
     count: horses.filter((horse) => horse.status === status).length,
@@ -105,7 +122,7 @@ export function DashboardPage() {
         <Grid size={{ xs: 12, sm: 6, lg: 3 }}><MetricCard label="Total horses" value={horses.length} detail="Across every stable row" icon={PetsRoundedIcon} tone="blue" /></Grid>
         <Grid size={{ xs: 12, sm: 6, lg: 3 }}><MetricCard label="Active horses" value={horses.filter((horse) => horse.status === 'Active').length} detail="Ready for the daily rhythm" icon={CheckCircleOutlineRoundedIcon} tone="green" /></Grid>
         <Grid size={{ xs: 12, sm: 6, lg: 3 }}><MetricCard label="In training" value={horses.filter((horse) => horse.status === 'Training').length} detail="Currently in a work block" icon={GroupsRoundedIcon} tone="orange" /></Grid>
-        <Grid size={{ xs: 12, sm: 6, lg: 3 }}><MetricCard label="Need attention" value={horses.filter((horse) => horse.status === 'Medical Attention').length} detail="Medical status requires care" icon={WarningAmberRoundedIcon} tone="red" /></Grid>
+        <Grid size={{ xs: 12, sm: 6, lg: 3 }}><MetricCard label="Need attention" value={horsesRequiringAttention} detail="Medical status or no vet activity in 14 days" icon={WarningAmberRoundedIcon} tone="red" /></Grid>
       </Grid>
 
       <Grid container spacing={2.5}>
