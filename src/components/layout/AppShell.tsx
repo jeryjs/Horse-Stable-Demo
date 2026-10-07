@@ -166,13 +166,13 @@ function NavigationContent({ onNavigate }: { onNavigate: () => void }) {
           }}
         >
           <Typography variant="caption" color="secondary.main" sx={{ fontWeight: 800 }}>
-            TODAY&apos;S FOCUS
+            TODAY'S FOCUS
           </Typography>
           <Typography variant="body2" sx={{ mt: 0.75, fontWeight: 750 }}>
             Keep every hoofprint in the log.
           </Typography>
           <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
-            Small notes make tomorrow&apos;s decisions easier.
+            Small notes make tomorrow's decisions easier.
           </Typography>
         </Box>
       </Box>
@@ -229,7 +229,11 @@ export function AppShell() {
           </Stack>
         </Toolbar>
       </AppBar>
-      <Box component="nav" aria-label="Main navigation">
+      <Box
+        component="nav"
+        aria-label="Main navigation"
+        sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
+      >
         <Drawer
           variant={isMobile ? 'temporary' : 'permanent'}
           open={isMobile ? mobileOpen : true}
