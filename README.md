@@ -14,11 +14,11 @@ Care insights are generated from local rules and activity dates. They are not AI
 
 ## Screenshots
 
-<img width="480" alt="Login" src="https://github.com/user-attachments/assets/7066ebb0-81ac-4378-947b-4880d092aa58" />
-<img width="480" alt="Horses" src="https://github.com/user-attachments/assets/e44d4bc5-03c2-4a07-8471-974f9529af40" />
-<img width="480" alt="Horses Profile" src="https://github.com/user-attachments/assets/f8a94ebb-2249-4495-85cf-44776d97ebe8" />
-<img width="480" alt="Activities" src="https://github.com/user-attachments/assets/46dc5ff0-c6ce-457c-b492-d7a187af5aec" />
-<img width="480" alt="Dashboard" src="https://github.com/user-attachments/assets/8867f62c-0b7e-40bd-9ae9-0586f39c716e" />
+<img width="360" alt="Login" src="https://github.com/user-attachments/assets/7066ebb0-81ac-4378-947b-4880d092aa58" />
+<img width="360" alt="Horses" src="https://github.com/user-attachments/assets/e44d4bc5-03c2-4a07-8471-974f9529af40" />
+<img width="360" alt="Horses Profile" src="https://github.com/user-attachments/assets/f8a94ebb-2249-4495-85cf-44776d97ebe8" />
+<img width="360" alt="Activities" src="https://github.com/user-attachments/assets/46dc5ff0-c6ce-457c-b492-d7a187af5aec" />
+<img width="360" alt="Dashboard" src="https://github.com/user-attachments/assets/8867f62c-0b7e-40bd-9ae9-0586f39c716e" />
 
 ## Run locally
 
