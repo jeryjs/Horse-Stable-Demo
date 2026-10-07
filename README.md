@@ -1,75 +1,75 @@
-# React + TypeScript + Vite
+# Equus - Stable Management
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Equus is a small horse-stable management app for maintaining horse profiles and activity records. It includes a dashboard, searchable lists, and local care insights.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Add and edit horse profiles, including an optional photo.
+- Record, update, and remove activities such as training, feeding, grooming, and veterinary visits.
+- Browse each horse's activity timeline and filter or search the horse and activity lists.
+- Review stable metrics, today's activities, and care insights on the dashboard.
+- Switch between light, dark, and system themes.
 
-## React Compiler
+Care insights are generated from local rules and activity dates. They are not AI-generated medical advice or a substitute for veterinary care.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Screenshots
 
-## Expanding the ESLint configuration
+Add screenshots here when available. Replace each placeholder with an image, for example: `![Dashboard](screenshots/dashboard.png)`.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Sign in
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+<!-- <Sign-in page screenshot goes here> -->
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Dashboard
 
-      // Other configs...
-    ],
-    languageOptions: {
-      # Equus · Stable Operations
+<!-- <Dashboard screenshot goes here> -->
 
-      Equus is a responsive horse-stable management frontend built with React 19, TypeScript, Vite, and current MUI/MUI X packages. It covers the practical assessment requirements without pretending to be a backend: horse profiles, activity history, dashboard metrics, search/filtering, and a transparent smart-care feature.
+### Horses
 
-      ## Run locally
+<!-- <Horse list screenshot goes here> -->
 
-      Install dependencies with pnpm, then start the Vite development server:
+### Horse profile
 
-      `pnpm install`
+<!-- <Horse profile and activity timeline screenshot goes here> -->
 
-      `pnpm dev`
+### Activities
 
-      Production validation uses:
+<!-- <Activity list screenshot goes here> -->
 
-      `pnpm build`
+### Not found
 
-      `pnpm lint`
+<!-- <Not-found page screenshot goes here> -->
 
-      ## Architecture
+## Run locally
 
-      - `src/pages` contains route-level orchestration for the dashboard, horse roster, horse profile, activity log, and not-found state.
-      - `src/components` contains presentational layout, forms, timeline, metric, status, avatar, and intelligence components.
-      - `src/hooks/useStableData.tsx` is the application data boundary. It exposes async CRUD methods and selectors like a future API repository, while the current implementation persists a complete snapshot in IndexedDB.
-      - `src/hooks/useIndexedDb.ts` contains the browser persistence adapter. Pages and components do not access IndexedDB directly.
-      - `src/hooks/useStableIntelligence.ts` derives activity-cadence and status insights from the same domain records. It is intentionally transparent and local, so a future recommendation service can replace the hook without changing page contracts.
-      - `src/types/stable.ts` defines the domain model and input shapes used by both the local adapter and future backend integration.
+Requires Node.js and pnpm.
 
-      ## Routes
-
-      - `/dashboard` — stable pulse, metrics, today’s activities, roster chart, and attention queue.
-      - `/horses` — searchable/filterable MUI X Data Grid and horse creation workflow.
-      - `/horses/:horseId` — horse profile, edit workflow, smart recommendation, and activity timeline.
-      - `/activities` — global activity log with horse/type/search filters and activity creation.
-
-      ## UI decisions
-
-      The interface uses a stable-inspired visual language: parchment surfaces, deep ink navigation, sage care signals, and copper actions. It uses MUI theme tokens, component defaults, responsive Grid `size` props, Data Grid, Charts, Date Pickers, accessible dialogs, keyboard focus styling, and a three-mode theme switcher (`Light`, `Dark`, `System`). `System` is the default.
-
-      Optional horse photos are stored as small data URLs inside the IndexedDB snapshot for a self-contained assessment demo. A production version should upload media and persist only a remote asset URL.
+```sh
+pnpm install
+pnpm dev
 ```
+
+Other useful commands:
+
+```sh
+pnpm build
+pnpm lint
+pnpm preview
+```
+
+## Data and sign-in
+
+Horse and activity records are stored in IndexedDB in the current browser. Sample records are added when the app is first opened. Data does not sync between browsers or devices.
+
+Sign-in is a local demo flow, not server-backed authentication. It accepts a valid email format and a password of at least six characters; it does not verify credentials. Do not use it to protect real or sensitive data.
+
+## Tech stack
+
+React, TypeScript, Vite, React Router, MUI, and IndexedDB.
+
+## Project structure
+
+- `src/pages` — dashboard, horse list, horse profile, activity list, sign-in, and not-found pages.
+- `src/components` — shared layout and UI components, including horse and activity forms.
+- `src/hooks` — local data, sign-in, theme, notifications, and care insight logic.
+- `src/types` — horse and activity data types.
